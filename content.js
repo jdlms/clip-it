@@ -25,23 +25,41 @@ function pollForElements(selector, callback) {
 pollForElement(".overflow-hidden", () => {
   console.log(".overflow-hidden found");
 
-  // Now let's poll for the target divs
   pollForElements(
     ".text-gray-400.flex.self-end",
     (targetDivs) => {
       console.log(targetDivs);
 
-      targetDivs.forEach((targetDiv) => {
+      targetDivs.forEach((targetDiv, i) => {
         const icon = document.createElement("div");
         icon.className = "gg-data";
-        targetDiv.appendChild(icon);
+
+        let qDiv = targetDiv
+          .closest(".overflow-hidden")
+          .querySelector(
+            "div.flex.flex-col.items-start.gap-3.whitespace-pre-wrap.break-words.overflow-x-auto"
+          );
+
+        if (qDiv) {
+          qDiv.classList.add(`${i}`);
+          console.log(qDiv);
+        }
+
+        let parentDiv = targetDiv.parentNode;
+        if (
+          !parentDiv.classList.contains("flex-col") &&
+          !parentDiv.classList.contains("gap-1") &&
+          !parentDiv.classList.contains("md:gap-3")
+        ) {
+          targetDiv.appendChild(icon);
+        }
       });
     }
   );
 });
 
+// for each icon i want to inset the index number into 1 specific div
+// then if the icon is clicked i want to get the inner text of the child of that div
 
+// <div class="relative flex w-[calc(100%-50px)] flex-col gizmo:w-full lg:w-[calc(100%-115px)] gizmo:text-gizmo-gray-600 gizmo:dark:text-gray-300"><div class="flex-col gap-1 md:gap-3"><div class="flex flex-grow flex-col gap-3 max-w-full"><div class="min-h-[20px] flex flex-col items-start gap-3 whitespace-pre-wrap break-words overflow-x-auto"><div class="">super cool to learn about the mutationobserver!</div></div></div>
 
-// class="text-gray-400 flex self-end lg:self-center justify-center gizmo:lg:justify-start mt-2 gizmo:mt-0 visible lg:gap-1 lg:absolute lg:top-0 lg:translate-x-full lg:right-0 lg:mt-0 lg:pl-2 gap-2 md:gap-3"
-
-// text-gray-400 flex self-end lg:self-center justify-center gizmo:lg:justify-start mt-2 gizmo:mt-0 visible lg:gap-1 lg:absolute lg:top-0 lg:translate-x-full lg:right-0 lg:mt-0 lg:pl-2 gap-2 md:gap-3 gizmo:absolute gizmo:right-0 gizmo:top-1/2 gizmo:-translate-y-1/2 gizmo:transform
