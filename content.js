@@ -10,23 +10,25 @@ function pollForElement(selector, callback) {
   }
 }
 
+function pollForElements(selector, callback) {
+  const elements = document.querySelectorAll(selector);
+  if (elements.length > 0) {
+    callback(elements);
+  } else {
+    setTimeout(
+      () => pollForElements(selector, callback),
+      300
+    );
+  }
+}
+
 pollForElement(".overflow-hidden", () => {
   console.log(".overflow-hidden found");
 
-  // Start a new poll for the specific target div.
-  pollForElement(
+  // Now let's poll for the target divs
+  pollForElements(
     ".text-gray-400.flex.self-end",
-    (targetDiv) => {
-      console.log("targetDiv found:", targetDiv);
-
-      const icon = document.createElement("div");
-      icon.className = "gg-data";
-      targetDiv.appendChild(icon);
-
-      const targetDivs = document.querySelectorAll(
-        ".text-gray-400.flex.self-end"
-      );
-
+    (targetDivs) => {
       console.log(targetDivs);
 
       targetDivs.forEach((targetDiv) => {
@@ -37,3 +39,9 @@ pollForElement(".overflow-hidden", () => {
     }
   );
 });
+
+
+
+// class="text-gray-400 flex self-end lg:self-center justify-center gizmo:lg:justify-start mt-2 gizmo:mt-0 visible lg:gap-1 lg:absolute lg:top-0 lg:translate-x-full lg:right-0 lg:mt-0 lg:pl-2 gap-2 md:gap-3"
+
+// text-gray-400 flex self-end lg:self-center justify-center gizmo:lg:justify-start mt-2 gizmo:mt-0 visible lg:gap-1 lg:absolute lg:top-0 lg:translate-x-full lg:right-0 lg:mt-0 lg:pl-2 gap-2 md:gap-3 gizmo:absolute gizmo:right-0 gizmo:top-1/2 gizmo:-translate-y-1/2 gizmo:transform
