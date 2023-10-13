@@ -34,17 +34,37 @@ pollForElement(".overflow-hidden", () => {
         const icon = document.createElement("div");
         icon.className = "gg-data";
 
-        let qDiv = targetDiv
-          .closest(".overflow-hidden")
-          .querySelector(
-            "div.flex.flex-col.items-start.gap-3.whitespace-pre-wrap.break-words.overflow-x-auto"
-          );
+        icon.dataset.index = i; // Storing the index in a data-attribute
 
-        if (qDiv) {
-          qDiv.classList.add(`${i}`);
-          console.log(qDiv);
+        icon.addEventListener('click', function(e) {
+          // Grab the index from the clicked element
+          const idx = e.target.dataset.index;
+          
+          // Use that index to locate the appropriate text
+          const q = document.querySelector(`.unique-id-${idx - 1}`);
+          const a = document.querySelector(`.unique-id-${idx}`);
+          
+          if (a) {
+            let question = q.innerText;
+            let answer = a.innerText;
+            console.log("Q", question);
+            console.log("A", answer)
+          }
+        });
+
+
+        let commonAncestor = targetDiv.closest('.group.w-full.text-token-text-primary');
+  
+        if (commonAncestor) {
+          // Traverse down 6 divs deep to get to the target text div
+          let deepNestedDiv = commonAncestor.querySelector('div > div > div > div > div > div');
+          
+          if (deepNestedDiv) {
+            deepNestedDiv.classList.add(`unique-id-${i}`);
+            let text = deepNestedDiv.innerText
+            console.log(text)
+          }  
         }
-
         let parentDiv = targetDiv.parentNode;
         if (
           !parentDiv.classList.contains("flex-col") &&
