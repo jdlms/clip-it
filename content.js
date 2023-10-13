@@ -28,7 +28,7 @@ pollForElement(".overflow-hidden", () => {
   pollForElements(
     ".text-gray-400.flex.self-end",
     (targetDivs) => {
-      console.log(targetDivs);
+     
 
       targetDivs.forEach((targetDiv, i) => {
         const icon = document.createElement("div");
@@ -47,11 +47,11 @@ pollForElement(".overflow-hidden", () => {
           if (a) {
             let question = q.innerText;
             let answer = a.innerText;
-            console.log("Q", question);
-            console.log("A", answer)
+            console.log("Q:", question);
+            console.log("A:", answer)
+            console.log(typeof answer)
           }
         });
-
 
         let commonAncestor = targetDiv.closest('.group.w-full.text-token-text-primary');
   
@@ -61,8 +61,6 @@ pollForElement(".overflow-hidden", () => {
           
           if (deepNestedDiv) {
             deepNestedDiv.classList.add(`unique-id-${i}`);
-            let text = deepNestedDiv.innerText
-            console.log(text)
           }  
         }
         let parentDiv = targetDiv.parentNode;
@@ -71,15 +69,15 @@ pollForElement(".overflow-hidden", () => {
           !parentDiv.classList.contains("gap-1") &&
           !parentDiv.classList.contains("md:gap-3")
         ) {
-          targetDiv.appendChild(icon);
+          const iconParent = document.createElement("div");
+          iconParent.className = "icon-parent"; 
+        
+          // append 
+          iconParent.appendChild(icon);
+          targetDiv.appendChild(iconParent);
+          
         }
       });
     }
   );
 });
-
-// for each icon i want to inset the index number into 1 specific div
-// then if the icon is clicked i want to get the inner text of the child of that div
-
-// <div class="relative flex w-[calc(100%-50px)] flex-col gizmo:w-full lg:w-[calc(100%-115px)] gizmo:text-gizmo-gray-600 gizmo:dark:text-gray-300"><div class="flex-col gap-1 md:gap-3"><div class="flex flex-grow flex-col gap-3 max-w-full"><div class="min-h-[20px] flex flex-col items-start gap-3 whitespace-pre-wrap break-words overflow-x-auto"><div class="">super cool to learn about the mutationobserver!</div></div></div>
-

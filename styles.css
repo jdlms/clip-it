@@ -1,3 +1,17 @@
+.icon-parent{
+  padding: 4px;
+  height: 15.977px;
+  width: 15.977px;
+}
+
+.icon-parent:hover{
+  cursor: pointer;
+}
+
+.gg-data:hover {
+  color: #d9d9e3; 
+}
+
 .gg-data {
   transform: scale(var(--ggs, 1));
 }
