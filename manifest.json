@@ -2,10 +2,9 @@
   "manifest_version": 3,
   "name": "Chat Clipper",
   "version": "0.1",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage", "tabs"],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
@@ -17,9 +16,7 @@
   ],
   "browser_action": {
     "icons": {
-      "16": "path/to/icon16.png",
-      "48": "path/to/icon48.png",
-      "128": "path/to/icon128.png"
+      "16": "./public/icon.png"
     }
   }
 }
