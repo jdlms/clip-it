@@ -3,5 +3,20 @@ import preact from '@preact/preset-vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        background: 'src/background.js',
+        content: 'src/content.js',
+        popup: 'src/popup.js'
+        // entry points
+      },
+      output: {
+        dir: 'dist',
+        format: 'es',
+        sourcemap: true,
+      },
+    },
+  },
   plugins: [preact()],
 })
