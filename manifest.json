@@ -9,13 +9,13 @@
   "content_scripts": [
     {
       "matches": ["https://chat.openai.com/*"],
-      "css": ["styles.css"],
+      "css": ["style/style.css"],
       "js": ["content.js"],
       "run_at": "document_idle"
     }
   ],
-  "browser_action": {
-    "icons": {
+  "action": {
+    "default_icons": {
       "16": "./public/icon.png"
     }
   }
