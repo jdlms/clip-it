@@ -1,19 +1,20 @@
 import { useState, useEffect } from "preact/hooks";
+import "./App.css";
 
 export function App() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const openRequest = indexedDB.open("YourDBName");
+    const openRequest = indexedDB.open("QA_Clips", 1);
 
     openRequest.onsuccess = (event) => {
       const db = event.target.result;
       const transaction = db.transaction(
-        "qaStore",
+        "QA-Store",
         "readonly"
       );
       const objectStore =
-        transaction.objectStore("qaStore");
+        transaction.objectStore("QA-Store");
 
       const getAllRequest = objectStore.getAll();
 
@@ -40,14 +41,15 @@ export function App() {
 
   return (
     <div>
+      <h1>Chat Clipper version 0.1</h1>
       <h2>Items from IndexedDB:</h2>
-      <ul>
-        {items.map((item) => (
-          <li key={item.question}>{item.answer}</li>
-        ))}
-      </ul>
+
+      {items.map((item) => (
+        <div className="items">
+          <div>Q: {item.question}</div>
+          <div>A: {item.answer.substring(7)}</div>
+        </div>
+      ))}
     </div>
   );
 }
-
-export default IndexedDBList;
