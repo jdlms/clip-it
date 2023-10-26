@@ -41,13 +41,19 @@ export function App() {
 
   return (
     <div>
-      <h1>Chat Clipper version 0.1</h1>
-      <h2>Items from IndexedDB:</h2>
+      <div id="title">
+        <h1>Chat Clipper version 0.1</h1>
+      </div>
 
       {items.map((item) => (
         <div className="items">
-          <div>Q: {item.question}</div>
-          <div>A: {item.answer.substring(7)}</div>
+          <div>
+            <span>Q:</span> {item.question}
+          </div>
+          <div>-</div>
+          <div>
+            <span>A:</span> {item.answer.substring(7)}
+          </div>
         </div>
       ))}
     </div>
