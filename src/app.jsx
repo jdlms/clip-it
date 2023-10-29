@@ -1,5 +1,5 @@
 import { useState, useEffect } from "preact/hooks";
-import "./App.css";
+import "./app.css";
 
 export function App() {
   const [items, setItems] = useState([]);
