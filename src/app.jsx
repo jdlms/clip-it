@@ -42,18 +42,21 @@ export function App() {
   return (
     <div>
       <div id="title">
-        <h1>Chat Clipper version 0.1</h1>
+        <h1>
+          Chat Clipper v0.1 <i className="gg-clipboard"></i>
+        </h1>
       </div>
 
       {items.map((item) => (
         <div className="items">
-          <div>
-            <span>Q:</span> {item.question}
-          </div>
-          <div>-</div>
-          <div>
-            <span>A:</span> {item.answer.substring(7)}
-          </div>
+          <details>
+            <summary role="button">
+              <span>Q:</span> {item.question}
+            </summary>
+            <p>
+              <span>A:</span> {item.answer.substring(7)}
+            </p>
+          </details>
         </div>
       ))}
     </div>

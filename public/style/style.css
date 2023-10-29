@@ -13,8 +13,8 @@
   position: relative;
   display: block;
   transform: scale(var(--ggs, 1));
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border: 2px solid;
   border-radius: 2px;
 }
