@@ -1,58 +1,46 @@
-.icon-parent{
+.icon-parent {
   padding: 4px;
   height: 15.977px;
   width: 15.977px;
 }
 
-.icon-parent:hover{
+.icon-parent:hover {
   cursor: pointer;
 }
 
-.gg-data:hover {
-  color: #d9d9e3; 
-}
-
-.gg-data {
-  transform: scale(var(--ggs, 1));
-}
-
-.gg-data,
-.gg-data::after,
-.gg-data::before {
+.gg-clipboard {
   box-sizing: border-box;
   position: relative;
   display: block;
+  transform: scale(var(--ggs, 1));
+  width: 18px;
+  height: 18px;
   border: 2px solid;
-  border-radius: 50%;
-  width: 14px;
-  height: 14px;
+  border-radius: 2px;
 }
 
-.gg-data::after,
-.gg-data::before {
+.gg-clipboard::after,
+.gg-clipboard::before {
   content: "";
+  display: block;
+  box-sizing: border-box;
   position: absolute;
-  width: 6px;
-  height: 6px;
-  top: 2px;
+  border-radius: 2px;
+  width: 10px;
   left: 2px;
 }
 
-.gg-data::after {
-  background: linear-gradient(
-      to left,
-      currentColor 8px,
-      transparent 0
-    )
-    no-repeat bottom center/2px 8px;
-  width: 22px;
-  height: 22px;
-  top: -6px;
-  left: -6px;
+.gg-clipboard::before {
+  border: 2px solid;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  top: -2px;
+  height: 6px;
 }
 
-.gg-data,
-.gg-data::after {
-  border-top-color: transparent;
-  border-bottom-color: transparent;
+.gg-clipboard::after {
+  height: 2px;
+  background: currentColor;
+  box-shadow: 0 -4px 0 0;
+  bottom: 2px;
 }

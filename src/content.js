@@ -35,7 +35,7 @@ pollForElement(".overflow-hidden", () => {
     (targetDivs) => {
       targetDivs.forEach((targetDiv, i) => {
         const icon = document.createElement("div");
-        icon.className = "gg-data";
+        icon.className = "gg-clipboard";
 
         icon.dataset.index = i; // Storing the index in a data-attribute
 
