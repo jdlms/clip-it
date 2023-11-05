@@ -1,5 +1,6 @@
 import { useState, useEffect } from "preact/hooks";
 import "./app.css";
+import DOMPurify from "dompurify";
 
 export function App() {
   const [items, setItems] = useState([]);
@@ -39,6 +40,10 @@ export function App() {
     };
   }, []);
 
+  const createMarkup = (html) => {
+    return { __html: DOMPurify.sanitize(html) }; // Sanitize the HTML
+  };
+
   return (
     <div>
       <div id="title">
@@ -51,10 +56,12 @@ export function App() {
         <div className="items">
           <details>
             <summary role="button">
-              <span>Q:</span> {item.question}
+              <span>Q:</span>
+              {item.question}
             </summary>
             <p>
-              <span>A:</span> {item.answer.substring(7)}
+              <span>A:</span>
+              <span>{item.answer.substring(7)}</span>
             </p>
           </details>
         </div>

@@ -10,6 +10,7 @@
     "postbuild": "cp manifest.json dist/"
   },
   "dependencies": {
+    "dompurify": "^3.0.6",
     "preact": "^10.16.0"
   },
   "devDependencies": {
