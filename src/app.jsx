@@ -48,7 +48,8 @@ export function App() {
     <div>
       <div id="title">
         <h1>
-          Chat Clipper v0.1 <i className="gg-clipboard"></i>
+          Chat Clipper v0.1
+          {/* <i className="gg-clipboard"></i> */}
         </h1>
       </div>
 
@@ -59,10 +60,13 @@ export function App() {
               <span>Q:</span>
               {item.question}
             </summary>
-            <p>
-              <span>A:</span>
-              <span>{item.answer.substring(7)}</span>
-            </p>
+            <span>A:</span>
+            <div
+              dangerouslySetInnerHTML={createMarkup(
+                `${item.answer.substring(7)}`
+              )}
+            />
+            ;
           </details>
         </div>
       ))}

@@ -59,8 +59,8 @@ pollForElement(".overflow-hidden", () => {
             console.log(typeof answer);
 
             let qaObj = {
-              question: q.innerText,
-              answer: a.innerText,
+              question: q.innerText.replace(/\n/g, "<br>"),
+              answer: a.innerText.replace(/\n/g, "<br>"),
               date: new Date().toISOString(),
             };
 
