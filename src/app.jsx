@@ -20,8 +20,14 @@ export function App() {
       const getAllRequest = objectStore.getAll();
 
       getAllRequest.onsuccess = (event) => {
-        const items = event.target.result;
-        setItems(items);
+        const items = event.target.result.map(
+          (item, idx) => ({
+            ...item,
+            id: idx,
+          })
+        );
+        const reversedItems = items.reverse();
+        setItems(reversedItems);
       };
 
       getAllRequest.onerror = (event) => {
@@ -40,8 +46,42 @@ export function App() {
     };
   }, []);
 
+  const removeFromIndexedDB = (id) => {
+    console.log("id", id);
+    const openRequest = indexedDB.open("QA_Clips", 1);
+
+    openRequest.onsuccess = (event) => {
+      const db = event.target.result;
+      const transaction = db.transaction(
+        "QA-Store",
+        "readwrite"
+      );
+      const objectStore =
+        transaction.objectStore("QA-Store");
+
+      const deleteRequest = objectStore.delete(id);
+
+      deleteRequest.onsuccess = () => {
+        // Item has been deleted from IndexedDB, update the rendered list
+        const updatedItems = items.filter(
+          (item) => item.id !== id
+        );
+        setItems(updatedItems);
+      };
+
+      deleteRequest.onerror = (event) => {
+        console.error(
+          "Error deleting item: ",
+          event.target.error
+        );
+      };
+    };
+  };
+
   const createMarkup = (html) => {
-    return { __html: DOMPurify.sanitize(html) }; // Sanitize the HTML
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
   };
 
   return (
@@ -53,23 +93,29 @@ export function App() {
         </h1>
       </div>
 
-      {items.map((item) => (
-        <div className="items">
-          <details>
-            <summary role="button">
-              <span>Q:</span>
-              {item.question}
-            </summary>
-            <span>A:</span>
-            <div
-              dangerouslySetInnerHTML={createMarkup(
-                `${item.answer.substring(7)}`
-              )}
-            />
-            ;
-          </details>
-        </div>
-      ))}
+      <ul>
+        {items.map((item) => (
+          <li key={item.id} className="items">
+            <details>
+              <summary role="button">
+                <span>Q:</span>
+                <div>{item.question.substring(3)}</div>
+              </summary>
+              <span>A:</span>
+              <div
+                dangerouslySetInnerHTML={createMarkup(
+                  `${item.answer.substring(26)}`
+                )}
+              />
+              <button
+                onClick={() => removeFromIndexedDB(item.id)}
+              >
+                Remove
+              </button>
+            </details>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
