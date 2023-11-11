@@ -73,7 +73,7 @@ pollForElement(".overflow-hidden", () => {
         });
 
         let commonAncestor = targetDiv.closest(
-          ".group.w-full.text-token-text-primary"
+          ".w-full.text-token-text-primary"
         );
 
         if (commonAncestor) {
