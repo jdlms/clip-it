@@ -5,8 +5,8 @@ openRequest.onupgradeneeded = function (event) {
   const db = event.target.result;
   if (!db.objectStoreNames.contains("QA-Store")) {
     db.createObjectStore("QA-Store", {
-      autoIncrement: true,
       keyPath: "key",
+      autoIncrement: true,
     });
   }
 };
