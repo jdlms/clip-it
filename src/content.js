@@ -72,6 +72,7 @@ pollForElement(".overflow-hidden", () => {
               qaObj
             );
           }
+          chrome.runtime.sendMessage({ iconClicked: true });
         });
 
         let commonAncestor = targetDiv.closest(

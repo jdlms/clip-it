@@ -6,6 +6,7 @@ openRequest.onupgradeneeded = function (event) {
   if (!db.objectStoreNames.contains("QA-Store")) {
     db.createObjectStore("QA-Store", {
       autoIncrement: true,
+      keyPath: "key",
     });
   }
 };
@@ -79,3 +80,18 @@ openRequest.onerror = function (event) {
     event.target.error
   );
 };
+
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.itemAdded) {
+    // Handle the item addition here if needed
+
+    // Broadcast a message to all tabs that an item has been added
+    chrome.tabs.query({}, (tabs) => {
+      tabs.forEach((tab) => {
+        chrome.tabs.sendMessage(tab.id, {
+          itemAdded: true,
+        });
+      });
+    });
+  }
+});

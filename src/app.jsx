@@ -6,48 +6,65 @@ export function App() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const openRequest = indexedDB.open("QA_Clips", 1);
+    // Function to fetch items from IndexedDB
+    const fetchItemsFromIndexedDB = () => {
+      const openRequest = indexedDB.open("QA_Clips", 1);
 
-    openRequest.onsuccess = (event) => {
-      const db = event.target.result;
-      const transaction = db.transaction(
-        "QA-Store",
-        "readonly"
-      );
-      const objectStore =
-        transaction.objectStore("QA-Store");
-
-      const getAllRequest = objectStore.getAll();
-
-      getAllRequest.onsuccess = (event) => {
-        const items = event.target.result.map(
-          (item, idx) => ({
-            ...item,
-            id: idx,
-          })
+      openRequest.onsuccess = (event) => {
+        const db = event.target.result;
+        const transaction = db.transaction(
+          "QA-Store",
+          "readonly"
         );
-        const reversedItems = items.reverse();
-        setItems(reversedItems);
-      };
+        const objectStore =
+          transaction.objectStore("QA-Store");
 
-      getAllRequest.onerror = (event) => {
-        console.error(
-          "Error retrieving items: ",
-          event.target.error
-        );
+        const getAllRequest = objectStore.getAll();
+
+        getAllRequest.onsuccess = (event) => {
+          const items = event.target.result.map(
+            (item, idx) => ({
+              ...item,
+              id: idx,
+            })
+          );
+          console.log(items);
+          const reversedItems = items.reverse();
+          setItems(reversedItems);
+        };
+
+        getAllRequest.onerror = (event) => {
+          console.error(
+            "Error retrieving items: ",
+            event.target.error
+          );
+        };
       };
     };
 
-    openRequest.onerror = (event) => {
-      console.error(
-        "Error opening database: ",
-        event.target.error
+    // Listener for the message indicating item addition
+    const itemAddedListener = (message) => {
+      if (message.itemAdded) {
+        // Trigger a re-fetch of items when an item is added
+        fetchItemsFromIndexedDB();
+      }
+    };
+
+    // Add the message listener
+    chrome.runtime.onMessage.addListener(itemAddedListener);
+
+    // Call the function to fetch items when the component mounts
+    fetchItemsFromIndexedDB();
+
+    // Clean up the listener when the component unmounts
+    return () => {
+      chrome.runtime.onMessage.removeListener(
+        itemAddedListener
       );
     };
   }, []);
 
-  const removeFromIndexedDB = (id) => {
-    console.log("id", id);
+  const removeFromIndexedDB = (id, key) => {
     const openRequest = indexedDB.open("QA_Clips", 1);
 
     openRequest.onsuccess = (event) => {
@@ -59,7 +76,7 @@ export function App() {
       const objectStore =
         transaction.objectStore("QA-Store");
 
-      const deleteRequest = objectStore.delete(id);
+      const deleteRequest = objectStore.delete(key);
 
       deleteRequest.onsuccess = () => {
         // Item has been deleted from IndexedDB, update the rendered list
@@ -92,7 +109,6 @@ export function App() {
           {/* <i className="gg-clipboard"></i> */}
         </h1>
       </div>
-
       <ul>
         {items.map((item) => (
           <li key={item.id} className="items">
@@ -108,14 +124,16 @@ export function App() {
                 )}
               />
               <button
-                onClick={() => removeFromIndexedDB(item.id)}
+                onClick={() =>
+                  removeFromIndexedDB(item.id, item.key)
+                }
               >
                 Remove
               </button>
             </details>
           </li>
         ))}
-      </ul>
+      </ul>{" "}
     </div>
   );
 }
