@@ -89,22 +89,23 @@ pollForElement(".overflow-hidden", () => {
             deepNestedDiv.classList.add(`unique-id-${i}`);
           }
         }
-        let parentDiv = targetDiv.parentNode;
-        const iconParent = document.createElement("div");
-        iconParent.className = "icon-parent";
 
-        // append
-        iconParent.appendChild(icon);
-        targetDiv.appendChild(iconParent);
+        // insert icon only in answers
+        let parentDiv = targetDiv.parentNode;
+        let parentSibling = parentDiv.previousSibling;
+        if (
+          parentSibling.querySelector(
+            'div[data-message-author-role="assistant"]'
+          )
+        ) {
+          const iconParent = document.createElement("div");
+          iconParent.className = "icon-parent";
+
+          // append
+          iconParent.appendChild(icon);
+          targetDiv.appendChild(iconParent);
+        }
       });
     }
   );
 });
-
-{
-  /* <div class="text-gray-400 flex self-end lg:self-center justify-center gizmo:lg:justify-start mt-2 gizmo:mt-0 visible gap-1"> */
-}
-
-{
-  /* <div class="text-gray-400 flex self-end lg:self-center justify-center gizmo:lg:justify-start mt-2 gizmo:mt-0 visible gap-1"> */
-}
