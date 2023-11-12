@@ -4,3 +4,4 @@ TO DO
 - Page is not reloading when item is added
 - Icons are loading in wrong place (the Question)
 - Re-poll if route changes?
+- json stringify into indexed db?

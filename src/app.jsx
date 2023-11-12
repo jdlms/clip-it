@@ -4,9 +4,10 @@ import DOMPurify from "dompurify";
 
 export function App() {
   const [items, setItems] = useState([]);
+  const [myBool, setMyBool] = useState(false);
 
   useEffect(() => {
-    // Function to fetch items from IndexedDB
+    // fetch items from IndexedDB
     const fetchItemsFromIndexedDB = () => {
       const openRequest = indexedDB.open("QA_Clips", 1);
 
@@ -42,27 +43,25 @@ export function App() {
       };
     };
 
-    // Listener for the message indicating item addition
+    // listener for new items
     const itemAddedListener = (message) => {
       if (message.itemAdded) {
-        // Trigger a re-fetch of items when an item is added
         fetchItemsFromIndexedDB();
       }
     };
-
-    // Add the message listener
+    console.log("item added!");
+    setMyBool((prevState) => !prevState);
     chrome.runtime.onMessage.addListener(itemAddedListener);
 
-    // Call the function to fetch items when the component mounts
     fetchItemsFromIndexedDB();
 
-    // Clean up the listener when the component unmounts
+    // clean up
     return () => {
       chrome.runtime.onMessage.removeListener(
         itemAddedListener
       );
     };
-  }, []);
+  }, [myBool]);
 
   const removeFromIndexedDB = (id, key) => {
     const openRequest = indexedDB.open("QA_Clips", 1);
@@ -79,7 +78,6 @@ export function App() {
       const deleteRequest = objectStore.delete(key);
 
       deleteRequest.onsuccess = () => {
-        // Item has been deleted from IndexedDB, update the rendered list
         const updatedItems = items.filter(
           (item) => item.id !== id
         );
@@ -114,7 +112,14 @@ export function App() {
           <li key={item.id} className="items">
             <details>
               <summary role="button">
-                <span>Q:</span>
+                <span>Q:</span>{" "}
+                <i
+                  className="gg-close-o"
+                  onClick={() =>
+                    removeFromIndexedDB(item.id, item.key)
+                  }
+                ></i>
+                <span>{item.date}</span>
                 <div>{item.question.substring(3)}</div>
               </summary>
               <span>A:</span>
@@ -123,13 +128,6 @@ export function App() {
                   `${item.answer.substring(26)}`
                 )}
               />
-              <button
-                onClick={() =>
-                  removeFromIndexedDB(item.id, item.key)
-                }
-              >
-                Remove
-              </button>
             </details>
           </li>
         ))}

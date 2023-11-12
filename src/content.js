@@ -63,7 +63,7 @@ pollForElement(".overflow-hidden", () => {
             let qaObj = {
               question: question,
               answer: answer,
-              date: new Date().toISOString(),
+              date: new Date().toLocaleDateString(),
             };
 
             // Send the data to the background script for IndexedDB storage
@@ -90,19 +90,21 @@ pollForElement(".overflow-hidden", () => {
           }
         }
         let parentDiv = targetDiv.parentNode;
-        if (
-          !parentDiv.classList.contains("flex-col") &&
-          !parentDiv.classList.contains("gap-1") &&
-          !parentDiv.classList.contains("md:gap-3")
-        ) {
-          const iconParent = document.createElement("div");
-          iconParent.className = "icon-parent";
+        const iconParent = document.createElement("div");
+        iconParent.className = "icon-parent";
 
-          // append
-          iconParent.appendChild(icon);
-          targetDiv.appendChild(iconParent);
-        }
+        // append
+        iconParent.appendChild(icon);
+        targetDiv.appendChild(iconParent);
       });
     }
   );
 });
+
+{
+  /* <div class="text-gray-400 flex self-end lg:self-center justify-center gizmo:lg:justify-start mt-2 gizmo:mt-0 visible gap-1"> */
+}
+
+{
+  /* <div class="text-gray-400 flex self-end lg:self-center justify-center gizmo:lg:justify-start mt-2 gizmo:mt-0 visible gap-1"> */
+}
