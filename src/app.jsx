@@ -114,7 +114,7 @@ export function App() {
               <summary role="button">
                 <span>Q:</span>{" "}
                 <i
-                  className="gg-close-o"
+                  className="gg-close-o delete-button"
                   onClick={() =>
                     removeFromIndexedDB(item.id, item.key)
                   }
