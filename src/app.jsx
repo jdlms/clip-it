@@ -61,7 +61,7 @@ export function App() {
         itemAddedListener
       );
     };
-  }, [myBool]);
+  }, []);
 
   const removeFromIndexedDB = (id, key) => {
     const openRequest = indexedDB.open("QA_Clips", 1);
@@ -120,12 +120,17 @@ export function App() {
                   }
                 ></i>
                 <span>{item.date}</span>
-                <div>{item.question.substring(3)}</div>
+                {/* <div>{item.question.substring(3)}</div> */}
+                <div
+                  dangerouslySetInnerHTML={createMarkup(
+                    `${item.question}`
+                  )}
+                ></div>
               </summary>
               <span>A:</span>
               <div
                 dangerouslySetInnerHTML={createMarkup(
-                  `${item.answer.substring(26)}`
+                  `${item.answer}`
                 )}
               />
             </details>

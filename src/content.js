@@ -37,7 +37,7 @@ pollForElement(".overflow-hidden", () => {
         const icon = document.createElement("div");
         icon.className = "gg-clipboard";
 
-        icon.dataset.index = i; // Storing the index in a data-attribute
+        icon.dataset.index = i;
 
         icon.addEventListener("click", function (e) {
           // Grab the index from the clicked element
@@ -51,14 +51,8 @@ pollForElement(".overflow-hidden", () => {
           );
 
           if (a) {
-            const question = q.innerText;
-            const answer = a.innerText
-              .replace(/\n/g, "<br>")
-              .replace(/;+$/, "");
-
-            console.log("Q:", question);
-            console.log("A:", answer);
-            console.log(typeof answer);
+            const question = q.innerHTML;
+            const answer = a.innerHTML;
 
             let qaObj = {
               question: question,
@@ -80,13 +74,17 @@ pollForElement(".overflow-hidden", () => {
         );
 
         if (commonAncestor) {
-          // Traverse down 6 divs deep to get to the target text div
-          let deepNestedDiv = commonAncestor.querySelector(
-            "div > div > div > div > div > div"
+          let textContainer = commonAncestor.querySelector(
+            "div > div > div:nth-child(2) > div > div > div[data-message-author-role]"
           );
 
-          if (deepNestedDiv) {
-            deepNestedDiv.classList.add(`unique-id-${i}`);
+          if (
+            textContainer &&
+            textContainer.getAttribute(
+              "data-message-author-role"
+            )
+          ) {
+            textContainer.classList.add(`unique-id-${i}`);
           }
         }
 
@@ -138,14 +136,8 @@ const observerCallback = () => {
               );
 
               if (a) {
-                const question = q.innerText;
-                const answer = a.innerText
-                  .replace(/\n/g, "<br>")
-                  .replace(/;+$/, "");
-
-                console.log("Q:", question);
-                console.log("A:", answer);
-                console.log(typeof answer);
+                const question = q.innerHTML;
+                const answer = a.innerHTML;
 
                 let qaObj = {
                   question: question,
@@ -169,14 +161,18 @@ const observerCallback = () => {
             );
 
             if (commonAncestor) {
-              // Traverse down 6 divs deep to get to the target text div
-              let deepNestedDiv =
+              let textContainer =
                 commonAncestor.querySelector(
-                  "div > div > div > div > div > div"
+                  "div > div > div:nth-child(2) > div > div > div[data-message-author-role]"
                 );
 
-              if (deepNestedDiv) {
-                deepNestedDiv.classList.add(
+              if (
+                textContainer &&
+                textContainer.getAttribute(
+                  "data-message-author-role"
+                )
+              ) {
+                textContainer.classList.add(
                   `unique-id-${i}`
                 );
               }
