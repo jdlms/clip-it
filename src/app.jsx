@@ -103,8 +103,12 @@ export function App() {
     <div>
       <div id="title">
         <h1>
-          Chat Clipper v0.1
-          {/* <i className="gg-clipboard"></i> */}
+          Clip-it
+          <img
+            className="logo"
+            src="/icon_128.png"
+            alt="logo"
+          />
         </h1>
       </div>
       <ul>

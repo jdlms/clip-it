@@ -36,6 +36,12 @@ ul li {
   z-index: 5;
 }
 
+.logo {
+  margin-left: 30px;
+  height: 90px;
+  width: auto;
+}
+
 /* gg-css icons */
 .gg-clipboard {
   box-sizing: border-box;
