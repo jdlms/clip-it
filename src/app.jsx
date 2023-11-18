@@ -45,12 +45,12 @@ export function App() {
 
     // listener for new items
     const itemAddedListener = (message) => {
+      setMyBool((prevState) => !prevState);
       if (message.itemAdded) {
         fetchItemsFromIndexedDB();
       }
     };
     console.log("item added!");
-    setMyBool((prevState) => !prevState);
     chrome.runtime.onMessage.addListener(itemAddedListener);
 
     fetchItemsFromIndexedDB();
@@ -61,7 +61,7 @@ export function App() {
         itemAddedListener
       );
     };
-  }, []);
+  }, [myBool]);
 
   const removeFromIndexedDB = (id, key) => {
     const openRequest = indexedDB.open("QA_Clips", 1);
