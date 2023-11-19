@@ -63,7 +63,8 @@ export function App() {
     };
   }, [myBool]);
 
-  const removeFromIndexedDB = (id, key) => {
+  const removeClickEvent = (id, key) => {
+    event.stopPropagation();
     const openRequest = indexedDB.open("QA_Clips", 1);
 
     openRequest.onsuccess = (event) => {
@@ -102,14 +103,11 @@ export function App() {
   return (
     <div>
       <div id="title">
-        <h1>
-          Clip-it
-          <img
-            className="logo"
-            src="/icon_128.png"
-            alt="logo"
-          />
-        </h1>
+        <img
+          className="logo"
+          src="/icon_128.png"
+          alt="logo"
+        />
       </div>
       <ul>
         {items.map((item) => (
@@ -120,7 +118,7 @@ export function App() {
                 <i
                   className="gg-close-o delete-button"
                   onClick={() =>
-                    removeFromIndexedDB(item.id, item.key)
+                    removeClickEvent(item.id, item.key)
                   }
                 ></i>
                 <span>{item.date}</span>
