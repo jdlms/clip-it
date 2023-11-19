@@ -122,7 +122,6 @@ export function App() {
                   }
                 ></i>
                 <span>{item.date}</span>
-                {/* <div>{item.question.substring(3)}</div> */}
                 <div
                   dangerouslySetInnerHTML={createMarkup(
                     `${item.question}`
