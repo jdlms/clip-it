@@ -120,7 +120,7 @@ const observerCallback = () => {
         (targetDivs) => {
           targetDivs.forEach((targetDiv, i) => {
             const icon = document.createElement("div");
-            icon.className = "gg-clipboard";
+            icon.className = "gg-album";
 
             icon.dataset.index = i; // Storing the index in a data-attribute
 
@@ -205,7 +205,7 @@ const observerCallback = () => {
         }
       );
     });
-  }, 1000);
+  }, 500);
 };
 
 // Create a MutationObserver instance
