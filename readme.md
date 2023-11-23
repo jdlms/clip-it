@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./public/icon_128.png" alt="clip-it icon">
+</p>
+
 TO DO
 
 - items are not deleting properly from Indexed DB. How to get key?
