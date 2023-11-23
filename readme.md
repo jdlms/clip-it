@@ -14,7 +14,7 @@ Clip-it is a Chrome extension that adds an icon to OpenAI's ChatGPT interface, a
 </p>
 
 <p align="center">
-  <img src="./public/example2" alt="second example">
+  <img src="./public/example2.png" alt="second example">
 </p>
 
 TO DO
