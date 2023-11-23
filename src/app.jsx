@@ -65,14 +65,14 @@ export function App() {
 
   return (
     <div>
-      <div id="title">
+      <div id="logo-container">
         <img
           className="logo"
           src="/icon_128.png"
           alt="logo"
         />
       </div>
-      <List items={items} />
+      <List items={items} setItems={setItems} />
     </div>
   );
 }

@@ -1,12 +1,13 @@
 #app {
-  padding: 2rem;
+  padding: 10px;
 }
 
-#title {
+#logo-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 span {
@@ -21,6 +22,14 @@ ul li {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+i {
+  display: inline;
+}
+
+span {
+  display: inline;
 }
 
 .items {
@@ -38,6 +47,17 @@ ul li {
   margin-bottom: 30px;
   height: 90px;
   width: auto;
+}
+
+.q-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.q-date {
+  font-size: small;
 }
 
 /* gg-css icons */

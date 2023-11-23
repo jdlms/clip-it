@@ -1,6 +1,6 @@
 import DOMPurify from "dompurify";
 
-export function List({ items }) {
+export function List({ items, setItems }) {
   const removeClickEvent = (id, key) => {
     event.stopPropagation();
     const openRequest = indexedDB.open("QA_Clips", 1);
@@ -44,21 +44,21 @@ export function List({ items }) {
         <li key={item.id} className="items">
           <details>
             <summary role="button">
-              <span>Q:</span>{" "}
-              <i
-                className="gg-close-o delete-button"
-                onClick={() =>
-                  removeClickEvent(item.id, item.key)
-                }
-              ></i>
-              <span>{item.date}</span>
+              <div className="q-header">
+                <span className="q-date">{item.date}</span>
+                <i
+                  className="gg-close-o delete-button"
+                  onClick={() =>
+                    removeClickEvent(item.id, item.key)
+                  }
+                ></i>
+              </div>
               <div
                 dangerouslySetInnerHTML={createMarkup(
                   `${item.question}`
                 )}
               ></div>
             </summary>
-            <span>A:</span>
             <div
               dangerouslySetInnerHTML={createMarkup(
                 `${item.answer}`
