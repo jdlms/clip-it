@@ -9,7 +9,7 @@
 
 ---
 
-Clip-it is a Chrome extension that adds an icon to OpenAI's ChatGPT interface, allowing users to save specific question and response blocks to browser storage for later reference. It was built as a small, personal project to learn about browser extensions and APIs. The icon tab interface was built with Preact.
+Clip-it is a Chrome extension that pins an icon onto ChatGPT interface, allowing users to save specific question and response blocks to browser storage for later reference. It was built as a small, personal project to learn about browser extensions and APIs. The icon tab interface was built with Preact and Pico CSS.
 
 <p align="center">
   <img src="./public/example2.png" alt="second example">
@@ -33,6 +33,6 @@ Clip-it is a Chrome extension that adds an icon to OpenAI's ChatGPT interface, a
 ---
 
 - add default message when there are no clips
-- DOM detection is a messy mix of polling and mutation detection, refactor
+- refactor DOM detection polling and mutation detection mix
 - icon color should change after click
 - make the question text editable in the extension tab
